@@ -1,0 +1,18 @@
+.channelList {
+    display: flex;
+    height: 94vh;
+    flex-direction: column;
+    gap: 1em;
+    background-color: #2b2d30;
+    color: #b6bbc2;
+    font-weight: bold;
+}
+
+.channel {
+    padding: 0.6rem;
+}
+
+.channel:hover {
+    background-color: #525558;
+    color: #ced6e0;
+}

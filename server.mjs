@@ -1,11 +1,12 @@
-const express = require('express')
-const http = require('http')
-const socketIo = require('socket.io')
+import express from 'express'
+import socketIo from 'socket.io'
+import http from 'http'
+import process from 'process';
 
-const { generateRandomId } = require('./server/utils.cjs')
-const { initializeStore } = require('./server/sessions.cjs')
-const { initializeChannel } = require('./server/channels.cjs')
-const { buildMessage } = require('./server/messages.cjs')
+import { generateRandomId } from './server/utils.mjs'
+import { initializeStore } from './server/sessions.mjs'
+import { initializeChannel } from './server/channels.mjs'
+import { buildMessage } from './server/messages.mjs'
 
 const app = express()
 

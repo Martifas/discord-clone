@@ -1,5 +1,5 @@
 import express from 'express'
-import socketIo from 'socket.io'
+import { Server } from 'socket.io'
 import http from 'http'
 import process from 'process';
 
@@ -13,7 +13,7 @@ const app = express()
 const server = http.createServer(app)
 const port = process.env.PORT || 8181
 
-const io = new socketIo.Server(server, {
+const io = new Server(server, {
   cors: {
     origin: ['http://localhost:5173', 'http://localhost:4173', 'https://piehost.com'],
   },

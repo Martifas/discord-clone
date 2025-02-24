@@ -10,6 +10,7 @@
 
 .channel {
     padding: 0.6rem;
+    text-wrap: nowrap;
 }
 
 .channel:hover {

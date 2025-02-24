@@ -1,9 +1,12 @@
 body {
-    display: flex;
-    min-height: 100vh;
-    font-family: 'Roboto', sans-serif;
-    min-width: 100vh;
-  }
+  display: flex;
+  min-height: 100vh;
+  font-family: 'Roboto', sans-serif;
+  min-width: 100%; /* ✅ Fix: Ensure it does not exceed the screen width */
+  background-color: #1d1e21;
+  overflow-x: hidden; /* ✅ Prevent horizontal scrolling */
+}
+
   
   #root {
     width: 100%;

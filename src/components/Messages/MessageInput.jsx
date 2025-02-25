@@ -11,11 +11,11 @@ function MessageInput({ channel }) {
 
     socket.emit('message:channel:send', channel.name, messageText)
 
-      setMessageText('')
+    setMessageText('')
   }
 
   return (
-    <div className="messageContainer">
+    <div className="inputContainer">
       <form onSubmit={handleSubmit}>
         <input
           type="text"
@@ -23,7 +23,6 @@ function MessageInput({ channel }) {
           onChange={e => setMessageText(e.target.value)}
           placeholder="Type your message here..."
         />
-        <button type="submit">Send</button>
       </form>
     </div>
   )

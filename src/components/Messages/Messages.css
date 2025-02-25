@@ -1,19 +1,51 @@
 .messageContainer {
+    color: white;
+    width: 100%;
+    background-color: #313338;
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
+    height: 100vh;
+}
+
+.messageHeader {
+    position: sticky;
+    top: 0;
+    padding: 10px;
+    text-align: left;
+    font-weight: bold;
+    z-index: 10;
+    border-bottom: 1px solid #444;
+    background-color: #313338;
+
+}
+
+.messageContent {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    overflow-y: auto;
+    flex-grow: 1;
+    max-height: calc(100vh - 130px);
+
+}
+
+.messageContent>:first-child {
+    margin-top: auto !important
+}
+
+.inputContainer {
     width: 100%;
-    max-width: 100vw;
-    padding: 0 10px;
+    padding: 10px;
     box-sizing: border-box;
-    overflow-x: hidden;
+    background-color: #313338;
+    border-top: 1px solid #444;
+    flex-shrink: 0;
 }
 
 .messageCard {
-    color: white;
     padding: 10px;
+    margin-bottom: 8px;
 }
-
 
 form {
     width: 100%;
@@ -22,31 +54,20 @@ form {
 }
 
 input {
-    background-color: #383A40;
+    background-color: #373a40;
     min-height: 5vh;
     width: 100%;
     box-sizing: border-box;
     padding: 8px 12px;
+    margin: 10px 10px 20px;
     border-radius: 4px;
     border: none;
     color: #fff;
 }
 
-button {
-    min-height: 5vh;
-    padding: 0 16px;
-    margin: 0 0.5rem;
-    border-radius: 4px;
-    border: none;
-    background-color: #5865F2;
-    color: white;
-    font-weight: bold;
-    cursor: pointer;
-}
-
 @media (max-width: 768px) {
     .messageContainer {
-        padding: 0 5px;
+        padding: 0;
     }
 
     button {

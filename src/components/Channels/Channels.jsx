@@ -1,9 +1,9 @@
 import './Channels.css'
 
-function Channels({ channelList, activeChannel, onSelectChannel }) {
+function Channels({ channelList, onSelectChannel }) {
   return (
     <div className="channelList">
-      <h2>{activeChannel}</h2>
+      <h3>TEXT CHANNELS</h3>
       {channelList.map((channel, index) => (
         <a
           className="channel"

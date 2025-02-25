@@ -1,15 +1,56 @@
-import MessageCard from "./MessageCard"
-import MessageInput from "./MessageInput"
+import { useEffect, useRef, useState } from 'react'
+import MessageCard from './MessageCard'
+import MessageInput from './MessageInput'
+import './Messages.css'
 
-function Messages({ messages, channel }) {
+function Messages({ channel }) {
+  const messagesEndRef = useRef(null)
+  const messagesContainerRef = useRef(null)
+  const [isUserAtBottom, setIsUserAtBottom] = useState(true)
+
+  const handleScroll = () => {
+    if (!messagesContainerRef.current) return
+
+    const { scrollTop, scrollHeight, clientHeight } = messagesContainerRef.current
+    const atBottom = scrollHeight - scrollTop <= clientHeight + 50
+    setIsUserAtBottom(atBottom)
+  }
+
+  useEffect(() => {
+    const container = messagesContainerRef.current
+    if (container) {
+      container.addEventListener('scroll', handleScroll)
+      return () => container.removeEventListener('scroll', handleScroll)
+    }
+  }, [])
+
+  useEffect(() => {
+    if (isUserAtBottom && messagesEndRef.current) {
+      messagesEndRef.current.scrollIntoView({ behavior: 'smooth' })
+    }
+  }, [channel.messages, isUserAtBottom])
+
   return (
-    <div>
-      {messages.map(msg => (
-        <MessageCard key={msg.id} username={msg.username} message={msg.message} />
-      ))}
+    <div className="messageContainer">
+      <div className="messageHeader">
+        <h2># {channel.name}</h2>
+      </div>
+      <div className="messageContent" ref={messagesContainerRef}>
+        {channel.messages.map(msg => (
+          <MessageCard key={msg.id} username={msg.username} message={msg.message} />
+        ))}
+        <div ref={messagesEndRef} />
+      </div>
+      {!isUserAtBottom && (
+        <button
+          className="scrollToBottom"
+          onClick={() => messagesEndRef.current.scrollIntoView({ behavior: 'smooth' })}
+        >
+          ⬇ Scroll to Bottom
+        </button>
+      )}
       <MessageInput channel={channel} />
     </div>
-
   )
 }
 

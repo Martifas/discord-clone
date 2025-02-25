@@ -1,41 +1,16 @@
-import { useState } from 'react'
-import { socket } from '@/libs/socket'
-import './Messages.css'
+import MessageCard from "./MessageCard"
+import MessageInput from "./MessageInput"
 
-function MessageInput({ channel, session, onMessageSend }) {
-  const [messageText, setMessageText] = useState('')
-
-  const handleSubmit = e => {
-    e.preventDefault()
-    if (!messageText.trim()) return
-
-    socket.emit('message:channel:send', channel.name, messageText)
-
-    const tempMessage = {
-      id: 'temp-' + Date.now(),
-      userId: session.userId,
-      username: session.username,
-      message: messageText,
-    }
-
-    onMessageSend(channel.name, tempMessage)
-
-    setMessageText('')
-  }
-
+function Messages({ messages, channel, session, onMessageSend }) {
   return (
-    <div className="messageContainer">
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          value={messageText}
-          onChange={e => setMessageText(e.target.value)}
-          placeholder="Type your message here..."
-        />
-        <button type="submit">Send</button>
-      </form>
+    <div>
+      {messages.map(msg => (
+        <MessageCard key={msg.id} username={msg.username} message={msg.message} />
+      ))}
+      <MessageInput channel={channel} session={session} onMessageSend={onMessageSend} />
     </div>
+
   )
 }
 
-export default MessageInput
+export default Messages

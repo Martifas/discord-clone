@@ -1,8 +1,7 @@
 import { useState, useEffect } from 'react'
 import { socket } from '@/libs/socket'
 import Channels from './Channels/Channels'
-import MessageInput from './Messages/Messages'
-import MessageList from './Messages/MessageList'
+import Messages from './Messages/Messages'
 import { initializeChannel } from '../../server/channels.mjs'
 
 import './App.css'
@@ -27,9 +26,9 @@ function App() {
         prevChannels.map(channel =>
           channel.name === channelName
             ? {
-                ...channel,
-                messages: [...channel.messages, message],
-              }
+              ...channel,
+              messages: [...channel.messages, message],
+            }
             : channel,
         ),
       )
@@ -66,12 +65,9 @@ function App() {
         activeChannel={activeChannel.name}
         onSelectChannel={handleChannelSelect}
       />
-      <MessageList messages={activeChannel.messages} />
-      <MessageInput
-        channel={activeChannel}
-        session={currentSession}
-        onMessageSend={handleMessageSend}
-      />
+      <div>
+        <Messages messages={activeChannel.messages} channel={activeChannel} session={currentSession} onMessageSend={handleMessageSend} />
+      </div>
     </div>
   )
 }

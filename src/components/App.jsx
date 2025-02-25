@@ -21,6 +21,25 @@ function App() {
   }
 
   useEffect(() => {
+
+    socket.connect()
+
+    socket.on('connect', () => {
+      console.log('✅ Connected to server! ID:', socket.id);
+    });
+
+    socket.on('channels', channels => {
+      setChannelList(channels)
+    })
+
+    socket.on('connect_error', (err) => {
+      console.error('❌ Connection error:', err);
+    });
+
+    socket.on('disconnect', () => {
+      console.warn('⚠️ Disconnected from server!');
+    });
+
     socket.on('message:channel', (channelName, message) => {
       setChannelList(prevChannels =>
         prevChannels.map(channel =>
@@ -35,7 +54,10 @@ function App() {
     })
 
     return () => {
+      socket.off('channels')
       socket.off('message:channel')
+      socket.off('disconnect')
+      socket.off('connect')
     }
   }, [])
 
@@ -65,9 +87,7 @@ function App() {
         activeChannel={activeChannel.name}
         onSelectChannel={handleChannelSelect}
       />
-      <div>
-        <Messages messages={activeChannel.messages} channel={activeChannel} session={currentSession} onMessageSend={handleMessageSend} />
-      </div>
+      <Messages messages={activeChannel.messages} channel={activeChannel} session={currentSession} onMessageSend={handleMessageSend} />
     </div>
   )
 }

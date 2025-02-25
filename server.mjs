@@ -52,6 +52,7 @@ io.use(async (socket, next) => {
 })
 
 io.on('connection', socket => {
+  console.log('New Client connected:', socket.id)
   const userSession = sessions.getSessionByUserId(socket.userId)
 
   const currentSession = {

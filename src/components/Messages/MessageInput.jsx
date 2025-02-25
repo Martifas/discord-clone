@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { socket } from '@/libs/socket'
 import './Messages.css'
 
-function MessageInput({ channel, session, onMessageSend }) {
+function MessageInput({ channel }) {
   const [messageText, setMessageText] = useState('')
 
   const handleSubmit = e => {
@@ -11,16 +11,7 @@ function MessageInput({ channel, session, onMessageSend }) {
 
     socket.emit('message:channel:send', channel.name, messageText)
 
-    const tempMessage = {
-      id: 'temp-' + Date.now(),
-      userId: session.userId,
-      username: session.username,
-      message: messageText,
-    }
-
-    onMessageSend(channel.name, tempMessage)
-
-    setMessageText('')
+      setMessageText('')
   }
 
   return (

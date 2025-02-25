@@ -14,11 +14,6 @@ function App() {
   ])
   const [activeChannelIndex, setActiveChannelIndex] = useState(0)
 
-  const currentSession = {
-    userId: 'user1',
-    username: 'Alice',
-    connected: true,
-  }
 
   useEffect(() => {
 
@@ -61,15 +56,6 @@ function App() {
     }
   }, [])
 
-  const handleMessageSend = (channelName, message) => {
-    setChannelList(prevChannels =>
-      prevChannels.map(channel =>
-        channel.name === channelName
-          ? { ...channel, messages: [...channel.messages, message] }
-          : channel,
-      ),
-    )
-  }
 
   const activeChannel = channelList[activeChannelIndex]
 
@@ -87,7 +73,7 @@ function App() {
         activeChannel={activeChannel.name}
         onSelectChannel={handleChannelSelect}
       />
-      <Messages messages={activeChannel.messages} channel={activeChannel} session={currentSession} onMessageSend={handleMessageSend} />
+      <Messages messages={activeChannel.messages} channel={activeChannel} />
     </div>
   )
 }

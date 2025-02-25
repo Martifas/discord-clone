@@ -1,13 +1,13 @@
 import MessageCard from "./MessageCard"
 import MessageInput from "./MessageInput"
 
-function Messages({ messages, channel, session, onMessageSend }) {
+function Messages({ messages, channel }) {
   return (
     <div>
       {messages.map(msg => (
         <MessageCard key={msg.id} username={msg.username} message={msg.message} />
       ))}
-      <MessageInput channel={channel} session={session} onMessageSend={onMessageSend} />
+      <MessageInput channel={channel} />
     </div>
 
   )

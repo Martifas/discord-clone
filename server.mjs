@@ -37,7 +37,17 @@ io.use(async (socket, next) => {
       socket.sessionId = sessionId
       socket.userId = session.userId
       socket.username = session.username
+      return next()
+    }
+  }
 
+  if (username) {
+    const existingSession = sessions.getSessionByUsername(username)
+
+    if (existingSession) {
+      socket.sessionId = existingSession.sessionId
+      socket.userId = existingSession.userId
+      socket.username = existingSession.username
       return next()
     }
   }
@@ -45,6 +55,7 @@ io.use(async (socket, next) => {
   socket.sessionId = generateRandomId()
   socket.userId = generateRandomId()
   socket.username = username ? username : `anonymous_${generateRandomId(2)}`
+
   next()
 })
 

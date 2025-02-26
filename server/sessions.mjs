@@ -11,7 +11,15 @@ export const initializeStore = () => {
         return session
       }
     }
+    return null
+  }
 
+  function getSessionByUsername(username) {
+    for (const session of sessionStorage.values()) {
+      if (session.username === username) {
+        return session
+      }
+    }
     return null
   }
 
@@ -20,13 +28,11 @@ export const initializeStore = () => {
   }
 
   function getAllUsers() {
-    return getAllSessions().map(session => {
-      return {
-        userId: session.userId,
-        username: session.username,
-        connected: session.connected,
-      }
-    })
+    return getAllSessions().map(session => ({
+      userId: session.userId,
+      username: session.username,
+      connected: session.connected,
+    }))
   }
 
   function setSession(sessionId, session) {
@@ -40,6 +46,7 @@ export const initializeStore = () => {
   return {
     getSessionById,
     getSessionByUserId,
+    getSessionByUsername,
     getAllSessions,
     getAllUsers,
     setSession,

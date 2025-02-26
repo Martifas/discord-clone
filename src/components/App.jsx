@@ -14,7 +14,7 @@ function App() {
   const [activeChannelIndex, setActiveChannelIndex] = useState(0)
   const [chatState, setChatState] = useState(CHAT_STATE.LOGIN)
   const [username, setUsername] = useState('')
-  const [loading, setLoading] = useState(true) // New loading state
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     const storedSessionId = localStorage.getItem('sessionId')
@@ -27,7 +27,7 @@ function App() {
         localStorage.setItem('sessionId', session.sessionId)
         setUsername(session.username)
         setChatState(CHAT_STATE.CHAT)
-        setLoading(false) // Done loading
+        setLoading(false)
       })
 
       return () => {
@@ -35,7 +35,7 @@ function App() {
       }
     }
 
-    setLoading(false) // If no session, show login form
+    setLoading(false)
   }, [])
 
   useEffect(() => {
@@ -92,7 +92,7 @@ function App() {
   }
 
   if (loading) {
-    return <p>Loading...</p> // Prevent flashing login form
+    return <p>Loading...</p>
   }
 
   if (chatState === CHAT_STATE.LOGIN) {
@@ -111,7 +111,11 @@ function App() {
         <p>No channels available.</p>
       ) : (
         <>
-          <Channels channelList={channelList} onSelectChannel={handleChannelSelect} username={username} />
+          <Channels
+            channelList={channelList}
+            onSelectChannel={handleChannelSelect}
+            username={username}
+          />
           <Messages channel={activeChannel} />
           <Users userList={userList} />
         </>

@@ -1,7 +1,7 @@
 import express from 'express'
 import { Server } from 'socket.io'
 import http from 'http'
-import process from 'process';
+import process from 'process'
 
 import { generateRandomId } from './server/utils.mjs'
 import { initializeStore } from './server/sessions.mjs'
@@ -28,8 +28,8 @@ const channels = CHANNEL_NAMES.map(channel => initializeChannel(channel))
 // Custom middleware to prepare the session.
 io.use(async (socket, next) => {
   const sessionId = socket.handshake.auth.sessionId
+  const username = socket.handshake.auth.username
 
-  // Ability to restore session from the client, if session ID is known.
   if (sessionId) {
     const session = sessions.getSessionById(sessionId)
 
@@ -38,16 +38,13 @@ io.use(async (socket, next) => {
       socket.userId = session.userId
       socket.username = session.username
 
-      next()
+      return next()
     }
   }
 
-  const username = socket.handshake.auth.username || `anonymous_${generateRandomId(2)}`
-
   socket.sessionId = generateRandomId()
   socket.userId = generateRandomId()
-  socket.username = username
-
+  socket.username = username ? username : `anonymous_${generateRandomId(2)}`
   next()
 })
 

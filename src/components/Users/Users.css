@@ -4,9 +4,13 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    flex-shrink: 0;
 }
 
 .userCard {
     text-wrap: nowrap;
-    padding: 0.3em 1.5em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0.3em 0.5rem;
 }

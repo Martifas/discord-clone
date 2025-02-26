@@ -3,17 +3,21 @@ import { socket } from '@/libs/socket'
 import Channels from './Channels/Channels'
 import Messages from './Messages/Messages'
 import Users from './Users/Users'
+import Login from './Login/Login'
 
 import './App.css'
+import { CHAT_STATE } from '@/libs/constants'
 
 function App() {
   const [channelList, setChannelList] = useState(null)
   const [userList, setUserList] = useState(null)
   const [activeChannelIndex, setActiveChannelIndex] = useState(0)
+  const [chatState, setChatState] = useState(CHAT_STATE.LOGIN)
+  const [username, setUsername] = useState(() => {
+    return localStorage.getItem('currentUser') || ''
+  })
 
   useEffect(() => {
-    socket.connect()
-
     socket.on('users', users => {
       setUserList(users)
     })
@@ -23,21 +27,6 @@ function App() {
       if (channels.length > 0) {
         setActiveChannelIndex(0)
       }
-    })
-
-    socket.on('user:join', user => {
-      setUserList(prevUsers => [...(prevUsers || []), user])
-    })
-
-    socket.on('user:leave', user => {
-      setUserList(prevUsers => prevUsers?.filter(u => u.userId !== user.userId) || [])
-    })
-
-    socket.on('user:disconnect', user => {
-      setUserList(
-        prevUsers =>
-          prevUsers?.map(u => (u.userId === user.userId ? { ...u, connected: false } : u)) || [],
-      )
     })
 
     socket.on('message:channel', (channelName, message) => {
@@ -53,16 +42,24 @@ function App() {
     })
 
     return () => {
-      socket.off('users')
-      socket.off('user:join')
-      socket.off('user:leave')
-      socket.off('user:disconnect')
       socket.off('channels')
+      socket.off('users')
       socket.off('message:channel')
-      socket.off('disconnect')
-      socket.off('connect')
     }
   }, [])
+
+  const handleUsernameSubmit = name => {
+    socket.auth = { username: name }
+    socket.disconnect()
+    socket.connect()
+
+    socket.on('session', session => {
+      setUsername(session.username)
+      localStorage.setItem('currentUser', session.username)
+    })
+
+    setChatState(CHAT_STATE.CHAT)
+  }
 
   const activeChannel = channelList?.[activeChannelIndex] || null
 
@@ -74,6 +71,14 @@ function App() {
     }
   }
 
+  if (chatState === CHAT_STATE.LOGIN) {
+    return (
+      <div>
+        <Login onUsernameSubmit={handleUsernameSubmit} />
+      </div>
+    )
+  }
+
   return (
     <div className="container">
       {channelList === null ? (
@@ -82,8 +87,12 @@ function App() {
         <p>No channels available.</p>
       ) : (
         <>
-          <Channels channelList={channelList} onSelectChannel={handleChannelSelect} />
-          <Messages channel={activeChannel} />
+          <Channels
+            channelList={channelList}
+            user={username}
+            onSelectChannel={handleChannelSelect}
+          />
+          <Messages channel={activeChannel} username={username} />
           <Users userList={userList} />
         </>
       )}

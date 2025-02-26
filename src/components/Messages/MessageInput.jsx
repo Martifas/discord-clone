@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { socket } from '@/libs/socket'
+
 import './Messages.css'
 
 function MessageInput({ channel }) {
@@ -21,7 +22,7 @@ function MessageInput({ channel }) {
           type="text"
           value={messageText}
           onChange={e => setMessageText(e.target.value)}
-          placeholder="Type your message here..."
+          placeholder={`Message #${channel.name}`}
         />
       </form>
     </div>

@@ -1,20 +1,32 @@
-.channelList {
+.channelContainer {
     display: flex;
     height: 100vh;
     flex-direction: column;
-    gap: 1em;
     background-color: #2b2d30;
     color: #b6bbc2;
     font-weight: bold;
+    overflow-y: auto;
+    text-wrap: nowrap;
+    flex-shrink: 0;
+    padding: 0 0.5rem;
 
 }
 
 .channel {
     padding: 0.6rem;
-    text-wrap: nowrap;
+    display: block;
+    text-decoration: none;
+    cursor: pointer;
 }
 
 .channel:hover {
     background-color: #525558;
     color: #ced6e0;
+}
+
+.username {
+    padding: 0 1rem;
+    margin: auto 0 2rem 0;
+
+
 }

@@ -38,13 +38,13 @@
     padding: 10px;
     box-sizing: border-box;
     background-color: #313338;
-    border-top: 1px solid #444;
     flex-shrink: 0;
 }
 
+
 .messageCard {
-    padding: 10px;
-    margin-bottom: 8px;
+    padding: 0 3rem;
+    margin: 0.5rem 0;
 }
 
 form {
@@ -58,12 +58,15 @@ input {
     min-height: 5vh;
     width: 100%;
     box-sizing: border-box;
-    padding: 8px 12px;
-    margin: 10px 10px 20px;
-    border-radius: 4px;
+    padding: 1rem 3rem;
+    margin: 1rem 1rem;
     border: none;
     color: #fff;
+    border-radius: 1rem;
+    font-size: 0.9rem;
+
 }
+
 
 @media (max-width: 768px) {
     .messageContainer {

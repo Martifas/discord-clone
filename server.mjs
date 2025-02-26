@@ -97,7 +97,7 @@ io.on('connection', socket => {
     registeredChannel.messages.push(builtMessage)
 
     socket.to(channel).emit('message:channel', channel, builtMessage)
-    socket.emit('message:channel', channel, builtMessage) // Send to the sender as well
+    socket.emit('message:channel', channel, builtMessage)
   })
 
   socket.on('disconnect', () => {

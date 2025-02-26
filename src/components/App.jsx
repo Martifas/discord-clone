@@ -13,9 +13,30 @@ function App() {
   const [userList, setUserList] = useState(null)
   const [activeChannelIndex, setActiveChannelIndex] = useState(0)
   const [chatState, setChatState] = useState(CHAT_STATE.LOGIN)
-  const [username, setUsername] = useState(() => {
-    return localStorage.getItem('currentUser') || ''
-  })
+  const [username, setUsername] = useState('')
+  const [loading, setLoading] = useState(true) // New loading state
+
+  useEffect(() => {
+    const storedSessionId = localStorage.getItem('sessionId')
+
+    if (storedSessionId) {
+      socket.auth = { sessionId: storedSessionId }
+      socket.connect()
+
+      socket.on('session', session => {
+        localStorage.setItem('sessionId', session.sessionId)
+        setUsername(session.username)
+        setChatState(CHAT_STATE.CHAT)
+        setLoading(false) // Done loading
+      })
+
+      return () => {
+        socket.off('session')
+      }
+    }
+
+    setLoading(false) // If no session, show login form
+  }, [])
 
   useEffect(() => {
     socket.on('users', users => {
@@ -50,12 +71,11 @@ function App() {
 
   const handleUsernameSubmit = name => {
     socket.auth = { username: name }
-    socket.disconnect()
     socket.connect()
 
     socket.on('session', session => {
+      localStorage.setItem('sessionId', session.sessionId)
       setUsername(session.username)
-      localStorage.setItem('currentUser', session.username)
     })
 
     setChatState(CHAT_STATE.CHAT)
@@ -69,6 +89,10 @@ function App() {
     if (index !== -1) {
       setActiveChannelIndex(index)
     }
+  }
+
+  if (loading) {
+    return <p>Loading...</p> // Prevent flashing login form
   }
 
   if (chatState === CHAT_STATE.LOGIN) {
@@ -87,12 +111,8 @@ function App() {
         <p>No channels available.</p>
       ) : (
         <>
-          <Channels
-            channelList={channelList}
-            user={username}
-            onSelectChannel={handleChannelSelect}
-          />
-          <Messages channel={activeChannel} username={username} />
+          <Channels channelList={channelList} onSelectChannel={handleChannelSelect} username={username} />
+          <Messages channel={activeChannel} />
           <Users userList={userList} />
         </>
       )}

@@ -1,6 +1,6 @@
 import './Channels.css'
 
-function Channels({ channelList, user, onSelectChannel }) {
+function Channels({ channelList, onSelectChannel, username }) {
   return (
     <div className="channelContainer">
       <h3>TEXT CHANNELS</h3>
@@ -9,7 +9,7 @@ function Channels({ channelList, user, onSelectChannel }) {
           # {channel.name}
         </a>
       ))}
-      <div className='username'>{user}</div>
+      <div className="username">{username}</div>
     </div>
   )
 }

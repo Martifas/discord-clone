@@ -15,7 +15,7 @@ function Channels({ channelList, onSelectChannel, username, onLogout }) {
           # {channel.name}
         </a>
       ))}
-      <div className="userContainer">        
+      <div className="userInfo">        
         <div className="username">{username}</div>
         <button onClick={onLogout}>Logout</button>
       </div>

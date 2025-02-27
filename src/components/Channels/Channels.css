@@ -1,23 +1,9 @@
-.channelContainer {
-    display: flex;
-    height: 100vh;
-    flex-direction: column;
-    background-color: #2b2d30;
-    color: #b6bbc2;
-    font-weight: bold;
-    overflow-y: auto;
-    text-wrap: nowrap;
-    flex-shrink: 0;
-    padding: 0 0.5rem;
-    overflow: hidden;
-
-}
-
 .channel {
     padding: 0.6rem 1rem;
     display: block;
     text-decoration: none;
     cursor: pointer;
+    align-self: center;
 }
 
 .channel:hover {
@@ -25,14 +11,14 @@
     color: #ced6e0;
 }
 
-.channelContainer .userContainer {
+.channelContainer .userInfo {
     display: flex;
     flex-direction: row;
     margin: auto 1rem 1rem 1rem;
     padding: 1rem 0;
 }
 
-.userContainer button {
+.userInfo button {
     padding: 0.5rem 1rem;
     border-radius: 1rem;
     margin: 0 0.5rem;
@@ -44,16 +30,39 @@
     transition: background 0.2s ease-in-out;
 }
 
-.userContainer button:hover {
+.userInfo button:hover {
     background: #a37cf0;
 }
 
-.userContainer button:active {
+.userInfo button:active {
     transform: scale(0.95);
 }
 
-
-
 .username {
     margin: auto;
+}
+
+@media (max-width: 1780px) {
+    .channelContainer .userInfo {
+        flex-direction: column;
+        gap: 0.2rem;
+
+    }
+
+    .userInfo button {
+        padding: 0.3rem 0.5rem;
+        font-size: 0.9rem;
+        margin: 0;
+
+    }
+
+    .username {
+        font-size: 0.9rem;
+    }
+
+    .channel {
+        font-size: 0.9rem;
+    }
+
+
 }

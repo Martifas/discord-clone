@@ -3,7 +3,7 @@ function MessageCard({ username, message, avatar, date }) {
     <div className="messageCard">
       <div className="avatar" dangerouslySetInnerHTML={{ __html: avatar }}></div>
       <div className="message">
-        <div>
+        <div className="messageInfo">
           <strong>{username} </strong> {date}
         </div>
         {message}

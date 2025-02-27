@@ -72,11 +72,16 @@ io.on('connection', socket => {
   sessions.setSession(socket.sessionId, currentSession)
   socket.emit('session', currentSession)
 
+  socket.broadcast.emit('user:connect', {
+    userId: currentSession.userId,
+    username: currentSession.username,
+    connected: false,
+  })
+
   channels.forEach(channel => socket.join(channel.name))
   socket.join(currentSession.userId)
 
   if (!userSession) {
-    // Announce when user joins the server for the first time
     socket.in(WELCOME_CHANNEL).emit('user:join', {
       userId: currentSession.userId,
       username: currentSession.username,
@@ -115,6 +120,8 @@ io.on('connection', socket => {
     const session = sessions.getSessionById(socket.sessionId)
 
     if (!session) return
+
+    
 
     sessions.setSession(socket.sessionId, {
       ...session,

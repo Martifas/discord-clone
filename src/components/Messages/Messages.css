@@ -9,7 +9,6 @@
 
 }
 
-
 .messageList {
     display: flex;
     flex-direction: column;
@@ -20,6 +19,32 @@
     overflow-x: hidden;
     word-wrap: break-word;
     overflow-wrap: break-word;
+    scrollbar-color: black;
+
+}
+
+.messageList::-webkit-scrollbar {
+    width: 0.5rem;
+}
+
+.messageList::-webkit-scrollbar-track {
+    background: inherit;
+
+}
+
+.messageList::-webkit-scrollbar-thumb {
+    background: gray;
+    border-radius: 4px;
+
+}
+
+.messageList::-webkit-scrollbar-thumb:hover {
+    background: #222;
+    /* Darker color when hovered */
+}
+
+.messageList::-webkit-scrollbar-thumb:hover {
+    background: darkgrey;
 
 }
 
@@ -53,9 +78,7 @@
     margin: 0.5rem 0;
     display: flex;
     flex-direction: row;
-
     max-width: 100%;
-
 }
 
 .messageContainer form {
@@ -73,6 +96,26 @@
     justify-content: center;
 }
 
+.scrollToBottom {
+    border-radius: 1rem;
+    padding: 0.5rem 0.3rem;
+    width: 80%;
+    align-self: center;
+    color: white;
+    border: none;
+    font-weight: bold;
+    background: #682bd7;
+    transition: background 0.2s ease-in-out;
+}
+
+.scrollToBottom:hover {
+    background: #a37cf0;
+}
+
+.scrollToBottom button:active {
+    transform: scale(0.95);
+}
+
 input {
     background-color: #373a40;
     min-height: 5vh;
@@ -83,14 +126,17 @@ input {
     color: #fff;
     border-radius: 1rem;
     font-size: 0.9rem;
+}
 
+.messageInfo {
+    padding-bottom: 0.1rem;
 }
 
 
-@media (max-width: 768px) {
+
+@media (max-width: 1780px) {
     .messageContainer {
         padding: 0;
     }
-
 
 }

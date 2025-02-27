@@ -12,24 +12,19 @@ function Users({ userList }) {
       <div className="headingContainer headingNoShadow">
         <h3 className="heading">Users</h3>
       </div>
-
       <h4>ONLINE - {onlineUsers.length}</h4>
+      {onlineUsers.length > 0 ? (
+        onlineUsers.map(user => <UserCard key={user.userId} user={user} />)
+      ) : (
+        <p></p>
+      )}
 
-      <div className="userCard">
-        {onlineUsers.length > 0 ? (
-          onlineUsers.map(user => <UserCard key={user.userId} user={user} />)
-        ) : (
-          <p></p>
-        )}
-      </div>
       <h4>OFFLINE - {offlineUsers.length}</h4>
-      <div className="userCard">
-        {offlineUsers.length > 0 ? (
-          offlineUsers.map(user => <UserCard key={user.userId} user={user} />)
-        ) : (
-          <p></p>
-        )}
-      </div>
+      {offlineUsers.length > 0 ? (
+        offlineUsers.map(user => <UserCard key={user.userId} user={user} />)
+      ) : (
+        <p></p>
+      )}
     </div>
   )
 }

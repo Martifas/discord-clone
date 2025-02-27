@@ -64,12 +64,43 @@ function App() {
       )
     })
 
+    socket.on('user:join', ({ userId, username }) => {
+      console.log(`[DEBUG] New user joined: ${username} (${userId})`)
+
+      setUserList(prevUsers =>
+        prevUsers
+          ? [...prevUsers, { userId, username, connected: true }]
+          : [{ userId, username, connected: true }],
+      )
+    })
+
+    socket.on('user:connect', ({ userId }) => {
+      console.log(`[DEBUG] User reconnected: ${userId}`)
+
+      setUserList(prevUsers =>
+        prevUsers
+          ? prevUsers.map(user => (user.userId === userId ? { ...user, connected: true } : user))
+          : [],
+      )
+    })
+
+    socket.on('user:disconnect', ({ userId }) => {
+      setUserList(prevUsers =>
+        prevUsers
+          ? prevUsers.map(user => (user.userId === userId ? { ...user, connected: false } : user))
+          : [],
+      )
+    })
+
     return () => {
       socket.off('channels')
       socket.off('users')
+      socket.off('user:connect')
       socket.off('message:channel')
+      socket.off('user:disconnect')
+      socket.off('user:join')
     }
-  }, [])
+  }, [username])
 
   const handleUsernameSubmit = name => {
     socket.auth = { username: name }

@@ -3,14 +3,20 @@ import { socket } from '@/libs/socket'
 
 import './Messages.css'
 
-function MessageInput({ channel }) {
+function MessageInput({ channel, avatar }) {
   const [messageText, setMessageText] = useState('')
 
   const handleSubmit = e => {
     e.preventDefault()
     if (!messageText.trim()) return
 
-    socket.emit('message:channel:send', channel.name, messageText)
+    const messageData = {
+      date: new Date().toLocaleString(),
+      message: messageText,
+      avatar:avatar,
+    }
+
+    socket.emit('message:channel:send', channel.name, messageData)
 
     setMessageText('')
   }

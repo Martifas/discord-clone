@@ -3,3 +3,25 @@
     flex-direction: row;
 }
 
+.container>* {
+    flex-shrink: 0;
+}
+
+.heading {
+    position: sticky;
+    top: 0;
+    font-weight: bold;
+    z-index: 10;
+    padding: 0 1rem;
+  }
+  
+  .headingContainer {
+    box-shadow: 0px 15px 3px -15px black;
+    padding: 0 1rem;
+    margin: 0 -1rem;
+  }
+  
+  .headingNoShadow {
+    box-shadow: none;
+    text-align: center;
+  }

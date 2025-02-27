@@ -3,7 +3,8 @@ import MessageCard from './MessageCard'
 import MessageInput from './MessageInput'
 import './Messages.css'
 
-function Messages({ channel }) {
+function Messages({ channel, avatar }) {
+  
   const messagesEndRef = useRef(null)
   const messagesContainerRef = useRef(null)
   const [isUserAtBottom, setIsUserAtBottom] = useState(true)
@@ -29,14 +30,15 @@ function Messages({ channel }) {
       messagesEndRef.current.scrollIntoView({ behavior: 'smooth' })
     }
   }, [channel.messages, isUserAtBottom])
+  
 
   return (
     <div className="messageContainer">
       <div className='headingContainer'><h3 className="heading"># {channel.name}</h3></div>
       
-      <div className="messageContent" ref={messagesContainerRef}>
+      <div className="messageList" ref={messagesContainerRef}>
         {channel.messages.map(msg => (
-          <MessageCard key={msg.id} username={msg.username} message={msg.message} />
+          <MessageCard key={msg.id} username={msg.username} message={msg.message.message} date={msg.message.date} avatar={msg.message.avatar} />
         ))}
         <div ref={messagesEndRef} />
       </div>
@@ -48,7 +50,7 @@ function Messages({ channel }) {
           ⬇ Scroll to Bottom
         </button>
       )}
-      <MessageInput channel={channel} />
+      <MessageInput channel={channel} avatar={avatar} />
     </div>
   )
 }

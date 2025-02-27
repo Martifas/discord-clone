@@ -1,6 +1,9 @@
 import './Channels.css'
 
 function Channels({ channelList, onSelectChannel, username, onLogout }) {
+  if (!channelList || channelList.length === 0) {
+    return <p>No channels available</p>
+  }
   return (
     <div className="channelContainer">
       <div className="headingContainer headingNoShadow">
@@ -12,7 +15,7 @@ function Channels({ channelList, onSelectChannel, username, onLogout }) {
           # {channel.name}
         </a>
       ))}
-      <div className="userContainer">
+      <div className="userContainer">        
         <div className="username">{username}</div>
         <button onClick={onLogout}>Logout</button>
       </div>

@@ -4,6 +4,7 @@ import Channels from './Channels/Channels'
 import Messages from './Messages/Messages'
 import Users from './Users/Users'
 import Login from './Login/Login'
+import { generateAvatar } from '@/libs/avatar'
 
 import './App.css'
 import { CHAT_STATE } from '@/libs/constants'
@@ -14,6 +15,7 @@ function App() {
   const [activeChannelIndex, setActiveChannelIndex] = useState(0)
   const [chatState, setChatState] = useState(CHAT_STATE.LOGIN)
   const [username, setUsername] = useState('')
+  const [userAvatar, setUserAvatar] = useState('')
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
@@ -76,6 +78,7 @@ function App() {
     socket.on('session', session => {
       localStorage.setItem('sessionId', session.sessionId)
       setUsername(session.username)
+      setUserAvatar(generateAvatar(session.username))
     })
 
     setChatState(CHAT_STATE.CHAT)
@@ -123,7 +126,7 @@ function App() {
             username={username}
             onLogout={handleLogout}
           />
-          <Messages channel={activeChannel} />
+          <Messages channel={activeChannel} avatar={userAvatar} />
           <Users userList={userList} />
         </>
       )}

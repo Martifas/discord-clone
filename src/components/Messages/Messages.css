@@ -99,13 +99,14 @@
 .scrollToBottom {
     border-radius: 1rem;
     padding: 0.5rem 0.3rem;
-    width: 80%;
+    width: 50%;
     align-self: center;
     color: white;
     border: none;
     font-weight: bold;
     background: #682bd7;
     transition: background 0.2s ease-in-out;
+    margin-top: 1rem;
 }
 
 .scrollToBottom:hover {

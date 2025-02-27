@@ -1,9 +1,10 @@
 .channel {
-    padding: 0.6rem 1rem;
+    padding: 0.6rem;
+    margin: 0;
     display: block;
     text-decoration: none;
     cursor: pointer;
-    align-self: center;
+    width: 100%;
 }
 
 .channel:hover {

@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react'
 import background from '../../../assets/dark_background.jpg'
 import './Login.css'
+import { validateUsername } from '@/libs/validateUsername'
 
 function Login({ onUsernameSubmit }) {
   const [username, setUsername] = useState('')
   const [backgroundLoaded, setBackgroundLoaded] = useState(false)
+  const [error, setError] = useState(null)
 
   useEffect(() => {
     const img = new Image()
@@ -14,7 +16,14 @@ function Login({ onUsernameSubmit }) {
 
   const handleNameInput = e => {
     e.preventDefault()
-    if (!username.trim()) return
+
+    const validationError = validateUsername(username)
+    if (validationError) {
+      setError(validationError)
+      return
+    }
+
+    setError(null)
     onUsernameSubmit(username)
   }
 
@@ -27,10 +36,11 @@ function Login({ onUsernameSubmit }) {
           type="text"
           value={username}
           onChange={e => setUsername(e.target.value)}
-          placeholder="e.g., PixelWizard99"
+          placeholder="e.g., Pixel9"
           aria-label="Enter your chat username"
           required
         />
+        {error && <p className="error">{error}</p>}
         <button type="submit">Join the chat</button>
       </form>
     </div>

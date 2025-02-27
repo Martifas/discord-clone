@@ -77,3 +77,9 @@
 .loginContainer button:active {
     transform: scale(0.95);
 }
+
+.error {
+    color: red;
+    align-self: center;
+    font-weight: bold;
+}

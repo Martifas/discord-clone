@@ -81,6 +81,12 @@ function App() {
     setChatState(CHAT_STATE.CHAT)
   }
 
+  const handleLogout = () => {
+    localStorage.clear('sessionId')
+    socket.disconnect()
+    setChatState(CHAT_STATE.LOGIN)
+  }
+
   const activeChannel = channelList?.[activeChannelIndex] || null
 
   const handleChannelSelect = channelName => {
@@ -115,6 +121,7 @@ function App() {
             channelList={channelList}
             onSelectChannel={handleChannelSelect}
             username={username}
+            onLogout={handleLogout}
           />
           <Messages channel={activeChannel} />
           <Users userList={userList} />

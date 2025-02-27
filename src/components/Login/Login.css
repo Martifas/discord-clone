@@ -17,12 +17,20 @@
 .loginContainer form {
     margin: auto;
     max-width: 30%;
+    gap: 1rem;
     display: flex;
-    background-color: rgba(0, 0, 0, 0.8);
+    background-color: rgba(0, 0, 0, 0.7);
     padding: 2rem 1rem;
     border-radius: 1rem;
     flex-direction: column;
     width: 50vw;
+    max-width: 80%;
+}
+
+@media screen and (min-width: 768px) {
+    .loginContainer form {
+        max-width: 25%
+    }
 }
 
 .loginContainer label {

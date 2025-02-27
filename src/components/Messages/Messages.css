@@ -7,22 +7,11 @@
     height: 100vh;
 }
 
-.messageHeader {
-    position: sticky;
-    top: 0;
-    padding: 10px;
-    text-align: left;
-    font-weight: bold;
-    z-index: 10;
-    border-bottom: 1px solid #444;
-    background-color: #313338;
-
-}
 
 .messageContent {
     display: flex;
     flex-direction: column;
-    padding: 10px;
+    padding: 0.7rem;
     overflow-y: auto;
     flex-grow: 1;
     max-height: calc(100vh - 130px);
@@ -35,7 +24,7 @@
 
 .inputContainer {
     width: 100%;
-    padding: 10px;
+    padding: 1rem;
     box-sizing: border-box;
     background-color: #313338;
     flex-shrink: 0;
@@ -43,11 +32,11 @@
 
 
 .messageCard {
-    padding: 0 3rem;
+    padding: 0 1rem;
     margin: 0.5rem 0;
 }
 
-form {
+.messageContainer form {
     width: 100%;
     display: flex;
     align-items: center;
@@ -58,8 +47,7 @@ input {
     min-height: 5vh;
     width: 100%;
     box-sizing: border-box;
-    padding: 1rem 3rem;
-    margin: 1rem 1rem;
+    padding: 1rem;
     border: none;
     color: #fff;
     border-radius: 1rem;
@@ -73,7 +61,5 @@ input {
         padding: 0;
     }
 
-    button {
-        padding: 0 12px;
-    }
+
 }

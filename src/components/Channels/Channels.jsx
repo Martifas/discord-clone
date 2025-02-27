@@ -1,15 +1,21 @@
 import './Channels.css'
 
-function Channels({ channelList, onSelectChannel, username }) {
+function Channels({ channelList, onSelectChannel, username, onLogout }) {
   return (
     <div className="channelContainer">
-      <h3>TEXT CHANNELS</h3>
+      <div className="headingContainer headingNoShadow">
+        <h3 className="heading">Text Channels</h3>
+      </div>
+
       {channelList.map((channel, index) => (
         <a className="channel" onClick={() => onSelectChannel(channel.name)} key={index}>
           # {channel.name}
         </a>
       ))}
-      <div className="username">{username}</div>
+      <div className="userContainer">
+        <div className="username">{username}</div>
+        <button onClick={onLogout}>Logout</button>
+      </div>
     </div>
   )
 }

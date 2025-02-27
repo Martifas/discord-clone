@@ -32,9 +32,8 @@ function Messages({ channel }) {
 
   return (
     <div className="messageContainer">
-      <div className="messageHeader">
-        <h2># {channel.name}</h2>
-      </div>
+      <div className='headingContainer'><h3 className="heading"># {channel.name}</h3></div>
+      
       <div className="messageContent" ref={messagesContainerRef}>
         {channel.messages.map(msg => (
           <MessageCard key={msg.id} username={msg.username} message={msg.message} />

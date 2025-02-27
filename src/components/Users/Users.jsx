@@ -9,7 +9,9 @@ function Users({ userList }) {
 
   return (
     <div className="userContainer">
-      <h3>Users</h3>
+      <div className="headingContainer headingNoShadow">
+        <h3 className="heading">Users</h3>
+      </div>
 
       <div className="userCard">
         <h4>ONLINE - {onlineUsers.length}</h4>
